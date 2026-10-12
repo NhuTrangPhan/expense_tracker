@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản lý chi tiêu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%B0%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div>
+        <h1>Quản lý chi tiêu</h1>
+        <p class="subtitle">Theo dõi thu nhập và chi tiêu hằng ngày của bạn</p>
+      </div>
+      <label class="month-picker">
+        <span>Tháng</span>
+        <input type="month" id="month-filter">
+      </label>
+    </header>
+
+    <section class="summary" aria-label="Tổng quan">
+      <div class="card stat">
+        <span class="stat-label">Tổng thu</span>
+        <span class="stat-value income" id="total-income">0 ₫</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Tổng chi</span>
+        <span class="stat-value expense" id="total-expense">0 ₫</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Số dư</span>
+        <span class="stat-value" id="balance">0 ₫</span>
+      </div>
+    </section>
+
+    <main class="layout">
+      <div class="column">
+        <section class="card" aria-label="Thêm giao dịch">
+          <h2>Thêm giao dịch</h2>
+          <form id="transaction-form">
+            <div class="type-toggle" role="radiogroup" aria-label="Loại giao dịch">
+              <label><input type="radio" name="type" value="expense" checked><span>Chi tiêu</span></label>
+              <label><input type="radio" name="type" value="income"><span>Thu nhập</span></label>
+            </div>
+            <label class="field">
+              <span>Mô tả</span>
+              <input type="text" id="desc" placeholder="Ví dụ: Ăn trưa, tiền lương…" required maxlength="100">
+            </label>
+            <div class="field-row">
+              <label class="field">
+                <span>Số tiền (₫)</span>
+                <input type="number" id="amount" min="1" step="1" placeholder="50000" required>
+              </label>
+              <label class="field">
+                <span>Ngày</span>
+                <input type="date" id="date" required>
+              </label>
+            </div>
+            <label class="field">
+              <span>Danh mục</span>
+              <select id="category"></select>
+            </label>
+            <button type="submit" class="btn-primary">Thêm giao dịch</button>
+          </form>
+        </section>
+
+        <section class="card" aria-label="Chi tiêu theo danh mục">
+          <h2>Chi tiêu theo danh mục</h2>
+          <div id="category-chart" class="viz-root"></div>
+        </section>
+      </div>
+
+      <div class="column">
+        <section class="card" aria-label="Danh sách giao dịch">
+          <div class="list-header">
+            <h2>Giao dịch trong tháng</h2>
+            <span class="count" id="tx-count"></span>
+          </div>
+          <ul id="transaction-list" class="tx-list"></ul>
+          <p id="empty-state" class="empty">Chưa có giao dịch nào trong tháng này. Thêm giao dịch đầu tiên của bạn ở bên trái nhé!</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      Dữ liệu được lưu trên trình duyệt của bạn (localStorage).
+    </footer>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
